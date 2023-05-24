@@ -10,7 +10,7 @@ import s2 from "../../assets/home/slide2.jpg";
 import s3 from "../../assets/home/slide3.jpg";
 import s4 from "../../assets/home/slide4.jpg";
 import s5 from "../../assets/home/slide5.jpg";
-import SectionTitle from "../SectionTitle/SectionTitle";
+import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 
 SwiperCore.use([Navigation, Pagination]);
 

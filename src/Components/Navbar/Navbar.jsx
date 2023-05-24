@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <>
-      <div className='bg-white z-50'>
+      <div className='bg-white w-full z-50'>
         <nav className='md:flex md:flex-row flex flex-col items-center justify-between flex-wrap py-6 max-w-7xl mx-auto'>
           {/* logo here */}
           <div className='flex items-center text-gray-500'>
             <Link to='/'>
               <div className='flex items-center text-2xl space-x-2'>
-                <span className='font-bold'>Bistro Boss Res.</span>
+                <span className='font-bold uppercase'>Bistro Boss Res.</span>
               </div>
             </Link>
           </div>

@@ -1,9 +1,12 @@
 import React from "react";
+import OrderOnline from "../../Components/OrderOnline/OderOnline";
 
 const Home = () => {
-  return <div>
-    Home
-  </div>;
+  return (
+    <div>
+      <OrderOnline></OrderOnline>
+    </div>
+  );
 };
 
 export default Home;

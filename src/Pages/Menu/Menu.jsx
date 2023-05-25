@@ -5,6 +5,7 @@ import Cover from "../../Shared/Cover/Cover";
 import DessertMenu from "../../Components/DessertsMenu/DessertsMenu";
 import PizzaMenu from "../../Components/PizzaMenu/PizzaMenu";
 import SaladMenu from "../../Components/SaladMenu/SaladMenu";
+import SoupMenu from "../../Components/SoupMenu/SoupMenu";
 import TodaysOffer from "../../Components/TodaysOffer/TodaysOffer";
 import pageCover from "../../assets/menu/banner3.jpg";
 
@@ -24,6 +25,7 @@ const Menu = () => {
       <DessertMenu></DessertMenu>
       <PizzaMenu></PizzaMenu>
       <SaladMenu></SaladMenu>
+      <SoupMenu></SoupMenu>
     </div>
   );
 };

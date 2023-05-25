@@ -32,7 +32,7 @@ const OrderOnline = () => {
             <img
               src={s1}
               alt='Image 1'
-              className='w-full h-auto relative hover:scale-105 transition ease-linear duration-150 cursor-pointer '
+              className='w-full h-auto relative hover:scale-105 transition ease-linear duration-150 cursor-pointer rounded'
             />
             <h2 className='text-2xl font-medium text-gray-200  absolute left-1/3 bottom-5'>
               SALADS
@@ -44,7 +44,7 @@ const OrderOnline = () => {
             <img
               src={s2}
               alt='Image 2'
-              className='w-full h-auto relative hover:scale-105 transition ease-linear duration-150 cursor-pointer'
+              className='w-full h-auto relative hover:scale-105 transition ease-linear duration-150 cursor-pointer rounded'
             />
             <h2 className='text-2xl font-medium text-gray-200  absolute left-1/3 bottom-5'>
               SOUPS
@@ -56,7 +56,7 @@ const OrderOnline = () => {
             <img
               src={s3}
               alt='Image 3'
-              className='w-full h-auto relative hover:scale-105 transition ease-linear duration-150 cursor-pointer'
+              className='w-full h-auto relative hover:scale-105 transition ease-linear duration-150 cursor-pointer rounded'
             />
             <h2 className='text-2xl font-medium text-gray-200  absolute left-1/3 bottom-5'>
               PIZZAS
@@ -68,7 +68,7 @@ const OrderOnline = () => {
             <img
               src={s4}
               alt='Image 4'
-              className='w-full h-auto relative hover:scale-105 transition ease-linear duration-150 cursor-pointer'
+              className='w-full h-auto relative hover:scale-105 transition ease-linear duration-150 cursor-pointer rounded'
             />
             <h2 className='text-2xl font-medium text-gray-200  absolute left-1/3 bottom-5'>
               DESSERTS
@@ -80,7 +80,7 @@ const OrderOnline = () => {
             <img
               src={s5}
               alt='Image 4'
-              className='w-full h-auto relative hover:scale-105 transition ease-linear duration-150 cursor-pointer'
+              className='w-full h-auto relative hover:scale-105 transition ease-linear duration-150 cursor-pointer rounded'
             />
             <h2 className='text-2xl font-medium text-gray-200  absolute left-1/3 bottom-5'>
               SALADS

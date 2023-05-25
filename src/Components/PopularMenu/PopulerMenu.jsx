@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Button from "../../Shared/Button/Button";
 import MenuCard from "../../Shared/MenuCard/MenuCard";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 
@@ -21,10 +22,14 @@ const PopulerMenu = () => {
         subheading='From our menu'
       ></SectionTitle>
 
-      <div className="grid grid-cols-2 gap-10">
+      <div className='grid grid-cols-2 mb-5 gap-10'>
         {menus?.map((menu) => (
           <MenuCard key={menu._id} item={menu}></MenuCard>
         ))}
+      </div>
+
+      <div className='flex items-center justify-center'>
+        <Button text='Order now'></Button>
       </div>
     </div>
   );

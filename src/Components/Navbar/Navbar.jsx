@@ -23,10 +23,16 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              to='/contact'
+              to='/menu'
               className='block md:inline-block text-md px-4 py-2 leading-none text-gray-800 hover:text-blue-500 hover:bg-slate-100 rounded-sm mt-4 md:mt-0'
             >
-              Contact us
+              Menu
+            </Link>
+            <Link
+              to='/shop'
+              className='block md:inline-block text-md px-4 py-2 leading-none text-gray-800 hover:text-blue-500 hover:bg-slate-100 rounded-sm mt-4 md:mt-0'
+            >
+              Shop
             </Link>
             <Link
               to='/dashboard'
@@ -34,17 +40,12 @@ const Navbar = () => {
             >
               Dashboard
             </Link>
+
             <Link
-              to='/menu'
+              to='/contact'
               className='block md:inline-block text-md px-4 py-2 leading-none text-gray-800 hover:text-blue-500 hover:bg-slate-100 rounded-sm mt-4 md:mt-0'
             >
-              One Menu
-            </Link>
-            <Link
-              to='/oneshop'
-              className='block md:inline-block text-md px-4 py-2 leading-none text-gray-800 hover:text-blue-500 hover:bg-slate-100 rounded-sm mt-4 md:mt-0'
-            >
-              One Shop
+              Contact us
             </Link>
             <Link
               to='/sign in'

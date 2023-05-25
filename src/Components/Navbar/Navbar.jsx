@@ -35,7 +35,7 @@ const Navbar = () => {
               Dashboard
             </Link>
             <Link
-              to='/onemenu'
+              to='/menu'
               className='block md:inline-block text-md px-4 py-2 leading-none text-gray-800 hover:text-blue-500 hover:bg-slate-100 rounded-sm mt-4 md:mt-0'
             >
               One Menu

@@ -8,7 +8,7 @@ const SoupMenu = () => {
   const [menus, setMenus] = useState([]);
 
   useEffect(() => {
-    fetch("/menu.json")
+    fetch("http://localhost:3000/menu")
       .then((res) => res.json())
       .then((data) => {
         const soupMenu = data.filter((menu) => menu.category === "soup");

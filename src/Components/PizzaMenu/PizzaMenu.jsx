@@ -8,7 +8,7 @@ const PizzaMenu = () => {
   const [menus, setMenus] = useState([]);
 
   useEffect(() => {
-    fetch("/menu.json")
+    fetch("http://localhost:3000/menu")
       .then((res) => res.json())
       .then((data) => {
         const pizzaMenu = data.filter((menu) => menu.category === "pizza");

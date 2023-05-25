@@ -14,7 +14,7 @@ const Shop = () => {
   const [drink, setDrink] = useState([]);
 
   useEffect(() => {
-    fetch("/menu.json")
+    fetch("http://localhost:3000/menu")
       .then((res) => res.json())
       .then((data) => {
         // Data Filtering

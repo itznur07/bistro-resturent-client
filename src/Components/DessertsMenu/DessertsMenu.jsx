@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Button from "../../Shared/Button/Button";
 import Cover from "../../Shared/Cover/Cover";
 import MenuCard from "../../Shared/MenuCard/MenuCard";
@@ -8,7 +9,7 @@ const DessertMenu = () => {
   const [menus, setMenus] = useState([]);
 
   useEffect(() => {
-    fetch("/menu.json")
+    fetch("http://localhost:3000/menu")
       .then((res) => res.json())
       .then((data) => {
         const dessertMenu = data.filter((menu) => menu.category === "dessert");
@@ -30,7 +31,9 @@ const DessertMenu = () => {
         ))}
       </div>
       <div className='flex items-center justify-center'>
-        <Button text='Order now'></Button>
+        <Link to={`/shop/dessets`}>
+          <Button text='Order now'></Button>
+        </Link>
       </div>
     </div>
   );

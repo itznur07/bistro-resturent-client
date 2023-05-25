@@ -7,7 +7,7 @@ const TodaysOffer = () => {
   const [menus, setMenus] = useState([]);
 
   useEffect(() => {
-    fetch("/menu.json")
+    fetch("http://localhost:3000/menu")
       .then((res) => res.json())
       .then((data) => {
         const offeredMenu = data.filter((menu) => menu.category === "offered");

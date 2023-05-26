@@ -1,11 +1,33 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import {
+  LoadCanvasTemplate,
+  loadCaptchaEnginge,
+  validateCaptcha,
+} from "react-simple-captcha";
 import { AuthContext } from "../../Providers/AuthProviders";
 import loginImg from "../../assets/others/authentication2.png";
 
 function Login() {
   const { loginUser } = useContext(AuthContext);
+  const captchaRef = useRef();
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+
+  const handleValidateCaptcha = () => {
+    const value = captchaRef.current.value;
+    if (validateCaptcha(value) == true) {
+      alert("Captcha Matched");
+      setDisabled(false);
+    } else {
+      alert("Captcha Does Not Match");
+      setDisabled(true);
+    }
+  };
 
   const handleSignIn = (event) => {
     event.preventDefault();
@@ -13,11 +35,11 @@ function Login() {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    const captcha = form.captcha.value;
 
     loginUser(email, password)
       .then(() => {
         alert("User Login Successfully!");
+        form.reset();
       })
       .catch((error) => {
         console.log(error);
@@ -33,7 +55,6 @@ function Login() {
         <h2 className='text-3xl text-center font-semibold text-gray-800 mb-10'>
           Login
         </h2>
-
         <div className='mb-4'>
           <label htmlFor='email' className='block text-gray-700 font-bold mb-2'>
             Email
@@ -60,41 +81,42 @@ function Login() {
           />
         </div>
         <div className='mb-1 mt-4'>
-          <input
-            type='text'
-            name='recaptcha'
-            value='A4uMcq'
-            id='recaptcha'
-            className='w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
-          />
+          <LoadCanvasTemplate />
         </div>
-        <span className='text-sm mb-4 font-semibold cursor-pointer hover:text-blue-500'>
-          Reload Captcha
-        </span>
         <div className='mb-2 mt-2'>
           <input
             type='text'
             name='captcha'
-            placeholder='write captcha here...'
+            placeholder='Write captcha here...'
+            ref={captchaRef}
             id='captcha'
             className='w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
           />
         </div>
-        <span className='text-sm mb-4'>
+        <button
+          type='button'
+          onClick={handleValidateCaptcha}
+          className='bg-yellow-500  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+        >
+          Verify
+        </button>{" "}
+        <br />
+        <span className='text-sm mb-4 mt-2'>
           Forget password?{" "}
           <span className='text-blue-500 cursor-pointer'>reset</span>
         </span>
         <br />
         <button
           type='submit'
-          className='bg-[#ff3811] hover:bg-blue-700 text-white w-full font-bold py-2 mt-4 px-4 rounded focus:outline-none focus:shadow-outline'
+          disabled={disabled}
+          className='bg-[#ffb152] text-white w-full font-bold py-2 mt-4 px-4 rounded focus:outline-none focus:shadow-outline'
         >
           Login
         </button>
         <div className='text-center my-4 text-sm font-medium'>
           or Sign in with
         </div>
-        <div className='text-center space-x-4 text-[#ff3811]'>
+        <div className='text-center space-x-4 text-[#ffb152]'>
           <button className='p-3 rounded-full bg-slate-100'>
             <FaFacebook />
           </button>
@@ -108,7 +130,7 @@ function Login() {
         <div className='text-center text-md mt-3 text-sm text-slate-600'>
           New here?{" "}
           <Link to='/signup'>
-            <span className='text-[#ff3811] font-medium'>Sign up</span>
+            <span className='text-[#ffb152] font-medium'>Sign up</span>
           </Link>
         </div>
       </form>

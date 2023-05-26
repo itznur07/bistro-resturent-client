@@ -73,14 +73,14 @@ function Signup() {
         <br />
         <button
           type='submit'
-          className='bg-[#ff3811] hover:bg-blue-700 text-white w-full font-bold py-2 mt-4 px-4 rounded focus:outline-none focus:shadow-outline'
+          className='bg-[#ffb152]  text-white w-full font-bold py-2 mt-4 px-4 rounded focus:outline-none focus:shadow-outline'
         >
           Signup
         </button>
         <div className='text-center my-4 text-sm font-medium'>
           or Sign in with
         </div>
-        <div className='text-center space-x-4 text-[#ff3811]'>
+        <div className='text-center space-x-4 text-[#ffb152]'>
           <button className='p-3 rounded-full bg-slate-100'>
             <FaFacebook />
           </button>
@@ -94,7 +94,7 @@ function Signup() {
         <div className='text-center text-md mt-3 text-sm text-slate-600'>
           already signup?{" "}
           <Link to='/login'>
-            <span className='text-[#ff3811] font-medium'>Login</span>
+            <span className='text-[#ffb152] font-medium'>Login</span>
           </Link>
         </div>
       </form>

@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProviders";
 
 const Navbar = () => {
+  const { user, logOutUser } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logOutUser()
+      .then(() => {
+        alert("logout successfully!");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <div className='bg-white w-full z-50'>
@@ -47,12 +60,21 @@ const Navbar = () => {
             >
               Contact us
             </Link>
-            <Link
-              to='/login'
-              className='block md:inline-block text-md px-4 py-2 leading-none text-gray-800 hover:text-blue-500 hover:bg-slate-100 rounded-sm mt-4 md:mt-0'
-            >
-              Login
-            </Link>
+            {user?.email ? (
+              <button
+                onClick={handleLogout}
+                className='block md:inline-block text-md px-4 py-2.5 font-medium  leading-none text-white bg-[#ffb152] rounded mt-4 md:mt-0'
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to='/login'
+                className='block md:inline-block text-md px-4 py-2.5 font-medium  leading-none text-white bg-[#ffb152] rounded mt-4 md:mt-0'
+              >
+                Login
+              </Link>
+            )}
           </div>
         </nav>
       </div>

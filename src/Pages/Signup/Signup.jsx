@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProviders";
@@ -6,15 +7,13 @@ import loginImg from "../../assets/others/authentication2.png";
 
 function Signup() {
   const { createUser, singInWithGoogle } = useContext(AuthContext);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSignUp = (event) => {
-    event.preventDefault();
-
-    const form = event.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-
+  const handleSignIn = ({ email, password }) => {
     createUser(email, password)
       .then(() => {
         alert("User Created Successfully");
@@ -29,7 +28,10 @@ function Signup() {
       <div>
         <img src={loginImg} alt='person' />
       </div>
-      <form onSubmit={handleSignUp} className='bg-white p-20 px-28 '>
+      <form
+        onSubmit={handleSubmit(handleSignIn)}
+        className='bg-white p-20 px-28 '
+      >
         <h2 className='text-3xl text-center font-semibold text-gray-800 mb-10'>
           Create an account
         </h2>
@@ -41,8 +43,17 @@ function Signup() {
             type='name'
             name='name'
             id='name'
-            className='w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+            className={`w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+              errors.name ? "border-red-500" : ""
+            }`}
+            {...register("name", {
+              required: "name is required",
+            })}
           />
+          <br />
+          {errors.name && (
+            <span className='text-red-500'>{errors.name.message}</span>
+          )}
         </div>
         <div className='mb-4'>
           <label htmlFor='email' className='block text-gray-700 font-bold mb-2'>
@@ -52,8 +63,18 @@ function Signup() {
             type='email'
             name='email'
             id='email'
-            className='w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+            className={`w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+              errors.email ? "border-red-500" : ""
+            }`}
+            {...register("email", {
+              required: "Email is required",
+              pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            })}
           />
+          <br />
+          {errors.email && (
+            <span className='text-red-500'>{errors.email.message}</span>
+          )}
         </div>
         <div className='mb-2'>
           <label
@@ -66,8 +87,17 @@ function Signup() {
             type='password'
             name='password'
             id='password'
-            className='w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+            className={`w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+              errors.password ? "border-red-500" : ""
+            }`}
+            {...register("password", {
+              required: "Password is required",
+            })}
           />
+          <br />
+          {errors.password && (
+            <span className='text-red-500'>{errors.password.message}</span>
+          )}
         </div>
 
         <br />

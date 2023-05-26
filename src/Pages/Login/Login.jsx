@@ -1,6 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
+
 import {
   LoadCanvasTemplate,
   loadCaptchaEnginge,
@@ -11,8 +13,14 @@ import loginImg from "../../assets/others/authentication2.png";
 
 function Login() {
   const { loginUser, singInWithGoogle } = useContext(AuthContext);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const captchaRef = useRef();
-  const [disable, setDisable] = useState(true);
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -29,13 +37,7 @@ function Login() {
     }
   };
 
-  const handleSignIn = (event) => {
-    event.preventDefault();
-
-    const form = event.target;
-    const email = form.email.value;
-    const password = form.password.value;
-
+  const handleSignIn = ({ email, password }) => {
     loginUser(email, password)
       .then(() => {
         alert("User Login Successfully!");
@@ -51,7 +53,10 @@ function Login() {
       <div>
         <img src={loginImg} alt='person' />
       </div>
-      <form onSubmit={handleSignIn} className='bg-white p-20 px-28 '>
+      <form
+        onSubmit={handleSubmit(handleSignIn)}
+        className='bg-white p-20 px-28 '
+      >
         <h2 className='text-3xl text-center font-semibold text-gray-800 mb-10'>
           Login
         </h2>
@@ -62,10 +67,19 @@ function Login() {
           <input
             type='email'
             name='email'
-            required
             id='email'
-            className='w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+            className={`w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+              errors.email ? "border-red-500" : ""
+            }`}
+            {...register("email", {
+              required: "Email is required",
+              pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            })}
           />
+          <br />
+          {errors.email && (
+            <span className='text-red-500'>{errors.email.message}</span>
+          )}
         </div>
         <div className='mb-2'>
           <label
@@ -77,10 +91,18 @@ function Login() {
           <input
             type='password'
             name='password'
-            required
             id='password'
-            className='w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+            className={`w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+              errors.password ? "border-red-500" : ""
+            }`}
+            {...register("password", {
+              required: "Password is required",
+            })}
           />
+          <br />
+          {errors.password && (
+            <span className='text-red-500'>{errors.password.message}</span>
+          )}
         </div>
         <div className='mb-1 mt-4'>
           <LoadCanvasTemplate />
@@ -89,12 +111,19 @@ function Login() {
           <input
             type='text'
             name='captcha'
-            placeholder='Write captcha here...'
-            ref={captchaRef}
-            required
             id='captcha'
-            className='w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+            ref={captchaRef}
+            className={`w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+              errors.captcha ? "border-red-500" : ""
+            }`}
+            {...register("captcha", {
+              required: "captch is required",
+            })}
           />
+          <br />
+          {errors.captcha && (
+            <span className='text-red-500'>{errors.captcha.message}</span>
+          )}
         </div>
         <button
           type='button'
@@ -110,7 +139,6 @@ function Login() {
         </span>
         <br />
         <button
-          disabled={disable}
           type='submit'
           className='bg-[#ffb152] text-white w-full font-bold py-2 mt-4 px-4 rounded focus:outline-none focus:shadow-outline'
         >

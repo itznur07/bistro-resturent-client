@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Cover from "../../Shared/Cover/Cover";
+import Pagination from "../../Shared/Pagination/Pagination";
 import pageCover from "../../assets/shop/banner2.jpg";
 import Card from "./Card";
 
@@ -12,6 +13,8 @@ const Shop = () => {
   const [pizza, setPizza] = useState([]);
   const [soup, setSoup] = useState([]);
   const [drink, setDrink] = useState([]);
+  const [limitStart, setLimitStart] = useState(0);
+  const [limitEnd, setLimitEnd] = useState(6);
 
   useEffect(() => {
     fetch("http://localhost:3000/menu")
@@ -33,6 +36,18 @@ const Shop = () => {
       });
   }, []);
 
+  const handleNext = (len) => {
+    if (len >= limitEnd) {
+      setLimitStart(limitEnd);
+      setLimitEnd(len - limitEnd + len);
+    }
+  };
+
+  const handlePrev = (len) => {
+    setLimitStart(0);
+    setLimitEnd(6);
+  };
+
   return (
     <div className='max-w-7xl mx-auto my-10'>
       <Helmet>
@@ -41,7 +56,7 @@ const Shop = () => {
       <Cover
         img={pageCover}
         heading='Our Shop'
-        subheading='This is our Shopß'
+        subheading='This is our Shop'
         size='5xl'
       ></Cover>
 
@@ -67,46 +82,76 @@ const Shop = () => {
         <TabPanel>
           {/* Render toys for salad category */}
           <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-            {salad?.map((menu) => (
+            {salad?.slice(limitStart, limitEnd).map((menu) => (
               <Card className='toy' key={menu._id} menu={menu} />
             ))}
+            <Pagination
+              handleNext={() => handleNext(salad.length)}
+              handlePrev={() => handlePrev(salad.length)}
+            >
+              {" "}
+            </Pagination>
           </div>
         </TabPanel>
 
         <TabPanel>
           {/* Render toys for dessert category */}
           <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-            {dessert?.map((menu) => (
+            {dessert?.slice(limitStart, limitEnd).map((menu) => (
               <Card className='toy' key={menu._id} menu={menu} />
             ))}
           </div>
+          <Pagination
+            handleNext={() => handleNext(dessert.length)}
+            handlePrev={() => handlePrev(dessert.length)}
+          >
+            {" "}
+          </Pagination>
         </TabPanel>
 
         <TabPanel>
           {/* Render toys for pizza category */}
           <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-            {pizza?.map((menu) => (
+            {pizza?.slice(limitStart, limitEnd).map((menu) => (
               <Card className='toy' key={menu._id} menu={menu} />
             ))}
           </div>
+          <Pagination
+            handleNext={() => handleNext(pizza.length)}
+            handlePrev={() => handlePrev(pizza.length)}
+          >
+            {" "}
+          </Pagination>
         </TabPanel>
 
         <TabPanel>
           {/* Render toys for soup category */}
           <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-            {soup?.map((menu) => (
+            {soup?.slice(limitStart, limitEnd).map((menu) => (
               <Card className='toy' key={menu._id} menu={menu} />
             ))}
           </div>
+          <Pagination
+            handleNext={() => handleNext(soup.length)}
+            handlePrev={() => handlePrev(soup.length)}
+          >
+            {" "}
+          </Pagination>
         </TabPanel>
 
         <TabPanel>
           {/* Render toys for drinks category */}
           <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-            {drink?.map((menu) => (
+            {drink?.slice(limitStart, limitEnd).map((menu) => (
               <Card className='toy' key={menu._id} menu={menu} />
             ))}
           </div>
+          <Pagination
+            handleNext={() => handleNext(drink.length)}
+            handlePrev={() => handlePrev(drink.length)}
+          >
+            {" "}
+          </Pagination>
         </TabPanel>
       </Tabs>
     </div>

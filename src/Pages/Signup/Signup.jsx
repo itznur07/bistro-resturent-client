@@ -5,7 +5,7 @@ import { AuthContext } from "../../Providers/AuthProviders";
 import loginImg from "../../assets/others/authentication2.png";
 
 function Signup() {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, singInWithGoogle } = useContext(AuthContext);
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -84,7 +84,10 @@ function Signup() {
           <button className='p-3 rounded-full bg-slate-100'>
             <FaFacebook />
           </button>
-          <button className='p-3 rounded-full bg-slate-100'>
+          <button
+            onClick={singInWithGoogle}
+            className='p-3 rounded-full bg-slate-100'
+          >
             <FaGoogle />
           </button>
           <button className='p-3 rounded-full bg-slate-100'>

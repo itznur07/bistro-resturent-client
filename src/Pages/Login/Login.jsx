@@ -10,9 +10,9 @@ import { AuthContext } from "../../Providers/AuthProviders";
 import loginImg from "../../assets/others/authentication2.png";
 
 function Login() {
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, singInWithGoogle } = useContext(AuthContext);
   const captchaRef = useRef();
-  const [disabled, setDisabled] = useState(true);
+  const [disable, setDisable] = useState(true);
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -22,10 +22,10 @@ function Login() {
     const value = captchaRef.current.value;
     if (validateCaptcha(value) == true) {
       alert("Captcha Matched");
-      setDisabled(false);
+      setDisable(false);
     } else {
       alert("Captcha Does Not Match");
-      setDisabled(true);
+      setDisable(true);
     }
   };
 
@@ -62,6 +62,7 @@ function Login() {
           <input
             type='email'
             name='email'
+            required
             id='email'
             className='w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
           />
@@ -76,6 +77,7 @@ function Login() {
           <input
             type='password'
             name='password'
+            required
             id='password'
             className='w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
           />
@@ -89,6 +91,7 @@ function Login() {
             name='captcha'
             placeholder='Write captcha here...'
             ref={captchaRef}
+            required
             id='captcha'
             className='w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
           />
@@ -107,8 +110,8 @@ function Login() {
         </span>
         <br />
         <button
+          disabled={disable}
           type='submit'
-          disabled={disabled}
           className='bg-[#ffb152] text-white w-full font-bold py-2 mt-4 px-4 rounded focus:outline-none focus:shadow-outline'
         >
           Login
@@ -120,7 +123,10 @@ function Login() {
           <button className='p-3 rounded-full bg-slate-100'>
             <FaFacebook />
           </button>
-          <button className='p-3 rounded-full bg-slate-100'>
+          <button
+            onClick={singInWithGoogle}
+            className='p-3 rounded-full bg-slate-100'
+          >
             <FaGoogle />
           </button>
           <button className='p-3 rounded-full bg-slate-100'>

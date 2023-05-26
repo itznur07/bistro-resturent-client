@@ -85,13 +85,13 @@ const Shop = () => {
             {salad?.slice(limitStart, limitEnd).map((menu) => (
               <Card className='toy' key={menu._id} menu={menu} />
             ))}
-            <Pagination
-              handleNext={() => handleNext(salad.length)}
-              handlePrev={() => handlePrev(salad.length)}
-            >
-              {" "}
-            </Pagination>
           </div>
+          <Pagination
+            handleNext={() => handleNext(salad.length)}
+            handlePrev={() => handlePrev(salad.length)}
+          >
+            {" "}
+          </Pagination>
         </TabPanel>
 
         <TabPanel>

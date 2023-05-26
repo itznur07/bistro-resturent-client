@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProviders";
 import loginImg from "../../assets/others/authentication2.png";
 
 function Signup() {
+  const { createUser } = useContext(AuthContext);
+
   const handleSignUp = (event) => {
     event.preventDefault();
 
@@ -11,8 +15,13 @@ function Signup() {
     const email = form.email.value;
     const password = form.password.value;
 
-    const singUpInfo = { name, email, password };
-    console.log(singUpInfo);
+    createUser(email, password)
+      .then(() => {
+        alert("User Created Successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

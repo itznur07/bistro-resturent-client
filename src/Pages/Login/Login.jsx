@@ -1,18 +1,27 @@
+import { useContext } from "react";
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProviders";
 import loginImg from "../../assets/others/authentication2.png";
 
 function Login() {
+  const { loginUser } = useContext(AuthContext);
+
   const handleSignIn = (event) => {
     event.preventDefault();
-    
+
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
     const captcha = form.captcha.value;
 
-    const loginInfo = { email, password, captcha };
-    console.log(loginInfo);
+    loginUser(email, password)
+      .then(() => {
+        alert("User Login Successfully!");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

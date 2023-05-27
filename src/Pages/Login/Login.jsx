@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import {
   LoadCanvasTemplate,
@@ -40,8 +41,29 @@ function Login() {
   const handleSignIn = ({ email, password }) => {
     loginUser(email, password)
       .then(() => {
-        alert("User Login Successfully!");
-        form.reset();
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Login Successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleGoogleSignIn = () => {
+    singInWithGoogle()
+      .then(() => {
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Sign in Successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -148,11 +170,12 @@ function Login() {
           or Sign in with
         </div>
         <div className='text-center space-x-4 text-[#ffb152]'>
-          <button className='p-3 rounded-full bg-slate-100'>
+          <button type='button' className='p-3 rounded-full bg-slate-100'>
             <FaFacebook />
           </button>
           <button
-            onClick={singInWithGoogle}
+            type='button'
+            onClick={handleGoogleSignIn}
             className='p-3 rounded-full bg-slate-100'
           >
             <FaGoogle />

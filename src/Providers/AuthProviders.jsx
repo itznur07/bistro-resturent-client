@@ -38,13 +38,7 @@ const AuthProviders = ({ children }) => {
   /** Google sign in systems */
   const singInWithGoogle = () => {
     setLoading(true);
-    signInWithPopup(auth, new GoogleAuthProvider())
-      .then(() => {
-        alert("User sign in successfully!");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    return signInWithPopup(auth, new GoogleAuthProvider());
   };
 
   /** Auth Observer onAuthStateChange */

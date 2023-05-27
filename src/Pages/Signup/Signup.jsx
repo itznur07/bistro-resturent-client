@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../../Providers/AuthProviders";
 import loginImg from "../../assets/others/authentication2.png";
 
@@ -13,10 +14,32 @@ function Signup() {
     formState: { errors },
   } = useForm();
 
-  const handleSignIn = ({ email, password }) => {
+  const handleSignUp = ({ email, password }) => {
     createUser(email, password)
       .then(() => {
-        alert("User Created Successfully");
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Sign in Successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleGoogleSignIn = () => {
+    singInWithGoogle()
+      .then(() => {
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Sign in Successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -29,7 +52,7 @@ function Signup() {
         <img src={loginImg} alt='person' />
       </div>
       <form
-        onSubmit={handleSubmit(handleSignIn)}
+        onSubmit={handleSubmit(handleSignUp)}
         className='bg-white p-20 px-28 '
       >
         <h2 className='text-3xl text-center font-semibold text-gray-800 mb-10'>
@@ -47,7 +70,7 @@ function Signup() {
               errors.name ? "border-red-500" : ""
             }`}
             {...register("name", {
-              required: "name is required",
+              required: "Name is required",
             })}
           />
           <br />
@@ -115,7 +138,8 @@ function Signup() {
             <FaFacebook />
           </button>
           <button
-            onClick={singInWithGoogle}
+            type='button'
+            onClick={handleGoogleSignIn}
             className='p-3 rounded-full bg-slate-100'
           >
             <FaGoogle />

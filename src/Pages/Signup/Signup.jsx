@@ -7,16 +7,18 @@ import { AuthContext } from "../../Providers/AuthProviders";
 import loginImg from "../../assets/others/authentication2.png";
 
 function Signup() {
-  const { createUser, singInWithGoogle } = useContext(AuthContext);
+  const { createUser, singInWithGoogle, updateUserProfle } =
+    useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleSignUp = ({ email, password }) => {
+  const handleSignUp = ({ email, password, name, photo }) => {
     createUser(email, password)
       .then(() => {
+        updateUserProfle(name, photo);
         Swal.fire({
           position: "top-center",
           icon: "success",
@@ -76,6 +78,26 @@ function Signup() {
           <br />
           {errors.name && (
             <span className='text-red-500'>{errors.name.message}</span>
+          )}
+        </div>
+        <div className='mb-4'>
+          <label htmlFor='photo' className='block text-gray-700 font-bold mb-2'>
+            PhotoURL
+          </label>
+          <input
+            type='text'
+            name='photo'
+            id='photo'
+            className={`w-72 border rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+              errors.photo ? "border-red-500" : ""
+            }`}
+            {...register("photo", {
+              required: "PhotoURL is required",
+            })}
+          />
+          <br />
+          {errors.photo && (
+            <span className='text-red-500'>{errors.photo.message}</span>
           )}
         </div>
         <div className='mb-4'>

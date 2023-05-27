@@ -6,6 +6,7 @@ import Menu from "../Pages/Menu/Menu";
 import Shop from "../Pages/Shop/Shop";
 import Signup from "../Pages/Signup/Signup";
 import Sercret from "../Shared/Secret/Sercret";
+import PrivateRoutes from "./PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +16,14 @@ export const router = createBrowserRouter([
       { path: "/", element: <Home></Home> },
       { path: "/menu", element: <Menu></Menu> },
       { path: "/shop/:category", element: <Shop></Shop> },
-      { path: "secret", element: <Sercret></Sercret> },
+      {
+        path: "secret",
+        element: (
+          <PrivateRoutes>
+            <Sercret></Sercret>
+          </PrivateRoutes>
+        ),
+      },
     ],
   },
   {

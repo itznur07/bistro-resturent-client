@@ -1,19 +1,23 @@
 import { useContext, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   LoadCanvasTemplate,
   loadCaptchaEnginge,
   validateCaptcha,
 } from "react-simple-captcha";
+import Swal from "sweetalert2";
 import { AuthContext } from "../../Providers/AuthProviders";
 import loginImg from "../../assets/others/authentication2.png";
 
-function Login() {
+const Login = () => {
   const { loginUser, singInWithGoogle } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const form = location?.state?.form?.pathname || "/";
 
   const {
     register,
@@ -48,6 +52,7 @@ function Login() {
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate(form, { replace: true });
       })
       .catch((error) => {
         console.log(error);
@@ -193,6 +198,6 @@ function Login() {
       </form>
     </div>
   );
-}
+};
 
 export default Login;

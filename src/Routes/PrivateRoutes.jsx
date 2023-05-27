@@ -1,15 +1,23 @@
 import React, { useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProviders";
 
 const PrivateRoutes = ({ children }) => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
+
+  const loaction = useLocation();
 
   if (user) {
     return children;
   }
 
-  return <Navigate to='/login' replace></Navigate>;
+  if (loading) {
+    return (
+      <div className='animate-spin rounded-full h-14 w-14 border-b-2 border-[rgb(255,225,57)]'></div>
+    );
+  }
+
+  return <Navigate to='/login' state={{ form: loaction }} replace></Navigate>;
 };
 
 export default PrivateRoutes;

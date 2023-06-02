@@ -38,11 +38,19 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Sidebar></Sidebar>,
+    element: (
+      <PrivateRoutes>
+        <Sidebar></Sidebar>
+      </PrivateRoutes>
+    ),
     children: [
       {
         path: "/dashboard/mycart",
-        element: <MyCart></MyCart>,
+        element: (
+          <PrivateRoutes>
+            <MyCart></MyCart>
+          </PrivateRoutes>
+        ),
       },
     ],
   },

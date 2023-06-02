@@ -1,26 +1,48 @@
+import { reload } from "firebase/auth";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { FaTrash } from "react-icons/fa";
+import Swal from "sweetalert2";
 import useCart from "../../../Hooks/useCart";
-
 const MyCart = () => {
-  const [cart] = useCart();
+  const [cart, refetch] = useCart();
+  // const { loading } = useContext(AuthContext);
 
   const total = cart.reduce((sum, item) => item.price + sum, 0);
 
   // Remove from cart action
   const removeFromCart = (_id) => {
-    fetch(`http://localhost:3000/carts/${_id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        alert("item deleted from cart ");
-        console.log(data);
-      });
+    Swal.fire({
+      position: "top-center",
+      icon: "question",
+      title: "Are you sure to delete?",
+      showConfirmButton: true,
+      showCancelButton: true,
+      timer: 2000,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/carts/${_id}`, {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              refetch();
+              Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Delete item Successfully!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              reload();
+            }
+          });
+      }
+    });
   };
 
   return (
@@ -32,7 +54,7 @@ const MyCart = () => {
       {/* For Cart Page Headings here  */}
       <div className='flex items-center justify-between container mx-auto p-4 uppercase'>
         <h1>Total Order: {cart.length}</h1>
-        <h1>Total Price: ${total}</h1>
+        <h1>Total Price: ${total.toFixed()}</h1>
         <button className='px-4 py-2 bg-[#D1A054] rounded text-white'>
           Pay
         </button>

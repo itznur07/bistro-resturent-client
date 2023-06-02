@@ -7,9 +7,11 @@ import {
   FaWallet,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import useCart from "../Hooks/useCart";
 import MyCart from "../Pages/Deshboard/MyCart/MyCart";
 
 const Sidebar = () => {
+  const [cart] = useCart();
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleSidebar = () => {
@@ -46,8 +48,11 @@ const Sidebar = () => {
                 to='/dashboard/mycart'
                 className='flex items-center space-x-2 py-2 px-4 rounded hover:bg-gray-700'
               >
-                <span>
+                <span className="relative">
                   <FaShoppingCart size={24} />
+                  <span className='absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full'>
+                    {cart.length}
+                  </span>
                 </span>{" "}
                 <span>Cart</span>
               </Link>

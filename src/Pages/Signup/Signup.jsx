@@ -18,7 +18,6 @@ function Signup() {
   const handleSignUp = ({ email, password, name, photo }) => {
     createUser(email, password)
       .then(() => {
-        updateUserProfle(name, photo);
         Swal.fire({
           position: "top-center",
           icon: "success",
@@ -26,6 +25,7 @@ function Signup() {
           showConfirmButton: false,
           timer: 1500,
         });
+        updateUserProfle(name, photo);
       })
       .catch((error) => {
         console.log(error);

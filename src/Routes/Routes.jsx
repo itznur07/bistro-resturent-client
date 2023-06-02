@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
+import Sidebar from "../Layout/Sidebar";
+import MyCart from "../Pages/Deshboard/MyCart/MyCart";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Menu from "../Pages/Menu/Menu";
@@ -15,7 +17,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home></Home> },
       { path: "/menu", element: <Menu></Menu> },
-      { path: "/shop/:category", element: <Shop></Shop> },
+      { path: "/shop", element: <Shop></Shop> },
       {
         path: "secret",
         element: (
@@ -33,5 +35,15 @@ export const router = createBrowserRouter([
   {
     path: "signup",
     element: <Signup></Signup>,
+  },
+  {
+    path: "dashboard",
+    element: <Sidebar></Sidebar>,
+    children: [
+      {
+        path: "/dashboard/mycart",
+        element: <MyCart></MyCart>,
+      },
+    ],
   },
 ]);

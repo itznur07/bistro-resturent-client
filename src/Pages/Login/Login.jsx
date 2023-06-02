@@ -14,10 +14,13 @@ import loginImg from "../../assets/others/authentication2.png";
 const Login = () => {
   const { loginUser, singInWithGoogle } = useContext(AuthContext);
 
+  const captchaRef = useRef();
+
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
   const navigate = useNavigate();
   const location = useLocation();
-
-  const form = location?.state?.form?.pathname || "/";
 
   const {
     register,
@@ -25,20 +28,27 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const captchaRef = useRef();
-
-  useEffect(() => {
-    loadCaptchaEnginge(6);
-  }, []);
+  const form = location?.state?.form?.pathname || "/";
 
   const handleValidateCaptcha = () => {
     const value = captchaRef.current.value;
+
     if (validateCaptcha(value) == true) {
-      alert("Captcha Matched");
-      setDisable(false);
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "captcha matched!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } else {
-      alert("Captcha Does Not Match");
-      setDisable(true);
+      Swal.fire({
+        position: "top-center",
+        icon: "warning",
+        title: "captcha does't match!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
 
@@ -69,6 +79,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate(form, { replace: true });
       })
       .catch((error) => {
         console.log(error);

@@ -8,6 +8,21 @@ const MyCart = () => {
 
   const total = cart.reduce((sum, item) => item.price + sum, 0);
 
+  // Remove from cart action
+  const removeFromCart = (_id) => {
+    fetch(`http://localhost:3000/carts/${_id}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        alert("item deleted from cart ");
+        console.log(data);
+      });
+  };
+
   return (
     <div>
       <Helmet>
@@ -55,7 +70,7 @@ const MyCart = () => {
                   <td className='py-2 px-4 border-b'>
                     <button
                       className='text-red-500 hover:text-red-700'
-                      onClick={() => removeFromCart(index)}
+                      onClick={() => removeFromCart(item._id)}
                     >
                       <FaTrash size={16}></FaTrash>
                     </button>

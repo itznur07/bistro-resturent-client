@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaLinkedin } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Providers/AuthProviders";
 import loginImg from "../../assets/others/authentication2.png";
@@ -14,18 +14,35 @@ function Signup() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const form = location?.state?.form?.pathname || "/";
 
   const handleSignUp = ({ email, password, name, photo }) => {
     createUser(email, password)
       .then(() => {
-        Swal.fire({
-          position: "top-center",
-          icon: "success",
-          title: "Sign in Successfully!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        updateUserProfle(name, photo);
+        const saveUser = { name: name, email: email };
+        fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(saveUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Sign in Successfully!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              updateUserProfle(name, photo);
+              navigate(form, { replace: true });
+            }
+          });
       })
       .catch((error) => {
         console.log(error);

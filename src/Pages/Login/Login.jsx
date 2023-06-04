@@ -71,15 +71,30 @@ const Login = () => {
 
   const handleGoogleSignIn = () => {
     singInWithGoogle()
-      .then(() => {
-        Swal.fire({
-          position: "top-center",
-          icon: "success",
-          title: "Sign in Successfully!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate(form, { replace: true });
+      .then((result) => {
+        const user = result.user;
+        const saveUser = { name: user?.displayName, email: user?.email };
+        console.log(saveUser);
+        fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(saveUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Sign in Successfully!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate(form, { replace: true });
+            }
+          });
       })
       .catch((error) => {
         console.log(error);

@@ -77,7 +77,7 @@ const Navbar = () => {
             >
               Contact us
             </Link>
-            <Link to='/dashboard/mycart' className='relative'>
+            <Link to='/mycart' className='relative'>
               <FiShoppingBag className='text-gray-500' size={24} />
               <span className='absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full'>
                 {cart.length}

@@ -3,6 +3,7 @@ import Dashboard from "../Layout/Dashboard";
 import Main from "../Layout/Main";
 import AdminHome from "../Pages/Deshboard/AdminHome/AdminHome";
 import AdminProfile from "../Pages/Deshboard/AdminProfile/AdminProfile";
+import AllUsers from "../Pages/Deshboard/AllUsers/AllUsers";
 import MyCart from "../Pages/Deshboard/MyCart/MyCart";
 import UserHome from "../Pages/Deshboard/UserHome/Home";
 import UserProfile from "../Pages/Deshboard/UserProfile/UserProfile";
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/adminprofile",
         element: <AdminProfile></AdminProfile>,
+      },
+      {
+        path: "/dashboard/allusers",
+        element: <AllUsers></AllUsers>,
       },
     ],
   },

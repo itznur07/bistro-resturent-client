@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import {
-  FaCuttlefish,
   FaEdit,
   FaHome,
   FaShoppingCart,
   FaUserAlt,
   FaUserEdit,
   FaUsers,
+  FaUtensilSpoon,
   FaWallet,
 } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
@@ -57,7 +57,7 @@ const Dashboard = () => {
                     className='flex items-center space-x-2 py-2 px-4 rounded hover:bg-gray-700'
                   >
                     <span className='relative'>
-                      <FaCuttlefish size={24} />
+                      <FaUtensilSpoon size={24} />
                       <span className='absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full'>
                         {cart.length}
                       </span>
@@ -78,7 +78,7 @@ const Dashboard = () => {
                 </li>
                 <li>
                   <Link
-                    to=''
+                    to='/dashboard/allusers'
                     className='flex items-center space-x-2 py-2 px-4 rounded hover:bg-gray-700'
                   >
                     <span>

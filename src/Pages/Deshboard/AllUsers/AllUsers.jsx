@@ -19,7 +19,7 @@ const AllUsers = () => {
       showCancelButton: true,
       timer: 2000,
     }).then((result) => {
-      if (result.isConfirmed) { 
+      if (result.isConfirmed) {
         fetch(`http://localhost:3000/users/admin/${id}`, {
           method: "PATCH",
           headers: {
@@ -36,6 +36,39 @@ const AllUsers = () => {
     });
   };
 
+  const handleRemoveUser = (id) => {
+    Swal.fire({
+      position: "top-center",
+      icon: "question",
+      title: "Are you sure to deleted user?",
+      showConfirmButton: true,
+      showCancelButton: true,
+      timer: 2000,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/users/${id}`, {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              refetch();
+              Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Delete user Successfully!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+      }
+    });
+  };
+
   return (
     <div>
       <Helmet>
@@ -44,7 +77,7 @@ const AllUsers = () => {
 
       {/* For Cart Page Headings here  */}
       <div className='flex items-center justify-between container mx-auto p-4 uppercase'>
-        <h1 className="text-md font-medium">Total Users: {users.length}</h1>
+        <h1 className='text-md font-medium'>Total Users: {users.length}</h1>
       </div>
       {/* For Cart Page Headings ends here */}
 
@@ -86,7 +119,7 @@ const AllUsers = () => {
                   <td className='py-2 px-4 border-b'>
                     <button
                       className='text-red-500 hover:text-red-700'
-                      onClick={() => removeFromCart(user._id)}
+                      onClick={() => handleRemoveUser(user._id)}
                     >
                       <FaTrash size={16}></FaTrash>
                     </button>

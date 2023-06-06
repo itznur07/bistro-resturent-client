@@ -12,13 +12,18 @@ const Reviews = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/reviews")
+    fetch("http://localhost:3000/reviews", {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("car-access-token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto my-16">
+    <div className='max-w-7xl mx-auto my-16'>
       <SectionTitle
         heading='Testimonials'
         subheading='What our client say'
@@ -32,7 +37,7 @@ const Reviews = () => {
         >
           {reviews?.map((review) => (
             <SwiperSlide>
-              <div className="flex flex-col justify-center items-center space-y-5 my-10">
+              <div className='flex flex-col justify-center items-center space-y-5 my-10'>
                 <div className='flex items-center space-x-4 text-xl text-yellow-500'>
                   {" "}
                   <FaStar /> <FaStar /> <FaStar /> <FaStar /> <FaStar />
@@ -41,10 +46,10 @@ const Reviews = () => {
                   <FaQuoteLeft size={72} />
                 </div>
                 <div>
-                  <p className="text-center mx-10">{review.details}</p>
+                  <p className='text-center mx-10'>{review.details}</p>
                 </div>
                 <div>
-                  <p className="text-xl uppercase font-medium">{review.name}</p>
+                  <p className='text-xl uppercase font-medium'>{review.name}</p>
                 </div>
               </div>
             </SwiperSlide>

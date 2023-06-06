@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useContext, useState } from "react";
 import {
   FaEdit,
   FaHome,
@@ -11,13 +12,20 @@ import {
 } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import useCart from "../Hooks/useCart";
+import { AuthContext } from "../Providers/AuthProviders";
 import DashboardNav from "../Shared/DashboardNav/DashboardNav";
 
 const Dashboard = () => {
+  const { user } = useContext(AuthContext);
   const [cart] = useCart();
   const [isOpen, setIsOpen] = useState(true);
 
-  const [isAdmin] = useState(true);
+  const { data: users = [], refetch } = useQuery(["users"], async () => {
+    const res = await fetch("http://localhost:3000/users");
+    return res.json();
+  });
+
+  const exectUser = users.filter((u) => u.email === user.email);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -36,7 +44,7 @@ const Dashboard = () => {
           <h1 className='text-2xl font-bold'>Bistro Boss</h1>
         </div>
 
-        {isAdmin ? (
+        {exectUser[0]?.role === "admin" ? (
           <>
             <nav className='px-4 md:mt-5'>
               <ul className='space-y-2'>

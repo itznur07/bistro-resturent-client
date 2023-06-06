@@ -9,9 +9,15 @@ const useCart = () => {
     queryKey: ["carts", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:3000/carts?email=${user?.email}`
+        `http://localhost:3000/carts?email=${user?.email}`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("car-access-token")}`,
+          },
+        }
       );
-      
+
       return res.json();
     },
   });

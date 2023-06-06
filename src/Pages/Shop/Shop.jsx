@@ -17,7 +17,12 @@ const Shop = () => {
   const [limitEnd, setLimitEnd] = useState(6);
 
   useEffect(() => {
-    fetch("http://localhost:3000/menu")
+    fetch("http://localhost:3000/menu", {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("car-access-token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         // Data Filtering

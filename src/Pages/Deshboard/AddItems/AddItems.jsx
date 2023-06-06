@@ -35,7 +35,19 @@ const AddItems = () => {
             image: imgUrl,
           };
 
-          console.log(newItem);
+          fetch("http://localhost:3000/menu", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(newItem),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.insertedId) {
+                alert("item added successfully");
+              }
+            });
         }
       });
   };
@@ -90,11 +102,11 @@ const AddItems = () => {
                   // onChange={handleCategoryChange}
                 >
                   <option value=''>Category</option>
-                  <option value='category1'>Salad</option>
-                  <option value='category2'>Pizza</option>
-                  <option value='category3'>Deseart</option>
-                  <option value='category4'>Soup</option>
-                  <option value='category5'>Drink</option>
+                  <option value='salad'>Salad</option>
+                  <option value='pizza'>Pizza</option>
+                  <option value='deseart'>Deseart</option>
+                  <option value='soup'>Soup</option>
+                  <option value='drink'>Drink</option>
                 </select>
               </div>
               <div className='mb-4'>
